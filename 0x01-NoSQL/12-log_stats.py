@@ -15,5 +15,5 @@ print(f"{total_logs} logs")
 
 print("Methods:")
 for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
-    count = db.nginx.count({"method": method})
+    count = db.nginx.count_documents({"method": method})
     print(f"\tmethod {method}: {count}")
