@@ -9,7 +9,7 @@ from pymongo import MongoClient
 client = MongoClient('mongodb://127.0.0.1:27017')
 db = client.logs
 
-total_logs = db.nginx.count_documents()
+total_logs = db.nginx.count_documents({})
 
 print(f"{total_logs} logs")
 
