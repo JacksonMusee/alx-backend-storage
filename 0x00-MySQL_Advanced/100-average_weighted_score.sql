@@ -16,7 +16,7 @@ BEGIN
 	SELECT SUM(projects.weight*corrections.score)/SUM(projects.weight)
 	INTO av_score
 	FROM corrections JOIN projects ON corrections.project_id = projects.id
-	WHERE user_id = userID;
+	WHERE corrections.user_id = userID;
 
 	UPDATE users
 	SET average_score = av_score
