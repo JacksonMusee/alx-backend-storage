@@ -19,6 +19,10 @@ BEGIN
     JOIN projects ON corrections.project_id = projects.id
     WHERE corrections.user_id = userID;
 
+    IF av_score IS NULL THEN
+	SET av_score = 0;
+    END IF;
+
     -- Update the user's average score in the 'users' table
     UPDATE users
     SET average_score = av_score
