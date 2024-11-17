@@ -19,5 +19,7 @@ if __name__ == "__main__":
         count = db.nginx.count_documents({"method": method})
         print(f"\tmethod {method}: {count}")
 
-    print(f"{db.nginx.count_documents(
-        {"method": "GET", "path": "/status"})} status check")
+    status_check_count = db.nginx.count_documents(
+        {"method": "GET", "path": "/status"})
+
+    print(f"{status_check_count} status check")
