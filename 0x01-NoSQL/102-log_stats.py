@@ -41,5 +41,8 @@ if __name__ == "__main__":
         list(ip_records), key=lambda x: x["ip"], reverse=True)
 
     for i in range(10):
-        for key, value in sorted_ip_records[i].items():
-            print(f"\t{key}: {value}")
+        try:
+            for key, value in sorted_ip_records[i].items():
+                print(f"\t{key}: {value}")
+        except Exception as e:
+            exit
