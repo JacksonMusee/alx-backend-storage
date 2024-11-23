@@ -25,14 +25,14 @@ if __name__ == "__main__":
 
     print(f"{status_check_count} status check")
 
-    print("IPS:")
+    print("IPs:")
     ip_records = {}
     for log in db.nginx.find({}):
         ip = log["ip"]
         if ip in ip_records:
-            ip_records["ip"] += 1
+            ip_records[ip] += 1
         else:
-            ip_records["ip"] = 1
+            ip_records[ip] = 1
 
     sorted_ip_records = sorted(
         ip_records.items(), key=lambda x: x[1], reverse=True)
