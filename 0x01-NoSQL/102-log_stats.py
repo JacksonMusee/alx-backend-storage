@@ -32,9 +32,14 @@ if __name__ == "__main__":
         if ip not in ips:
             ips.append(ip)
 
-    track = 0
+    ip_records = {}
     for ip in ips:
-        if track < 10:
-            count = db.nginx.count_documents({"ip": ip})
-            print(f"\t{ip}: {count}")
-            track += 1
+        count = db.nginx.count_documents({"ip": ip})
+        ip_records[ip] = count
+
+    sorted_ip_records = sorted(
+        list(ip_records), key=lambda x: x["ip"], reverse=True)
+
+    for i in range(10):
+        for key, value in sorted_ip_records[i].items():
+            print(f"\t{key}: {value}")
