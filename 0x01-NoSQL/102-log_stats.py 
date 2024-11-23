@@ -32,6 +32,9 @@ if __name__ == "__main__":
         if ip not in ips:
             ips.append(ip)
 
+    track = 0
     for ip in ips:
-        count = db.nginx.count_documents({"ip": ip})
-        print(f"\t{ip}: {count}")
+        if track < 10:
+            count = db.nginx.count_documents({"ip": ip})
+            print(f"\t{ip}: {count}")
+            track += 1
