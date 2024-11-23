@@ -28,7 +28,7 @@ if __name__ == "__main__":
     print("IPS:")
     ip_records = {}
     for log in db.nginx.find({}):
-        ip = log("ip")
+        ip = log["ip"]
         if ip in ip_records:
             ip_records["ip"] += 1
         else:
