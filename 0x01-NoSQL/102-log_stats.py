@@ -37,9 +37,6 @@ if __name__ == "__main__":
     sorted_ip_records = sorted(
         ip_records.items(), key=lambda x: x[1], reverse=True)
 
-    for i in range(10):
-        try:
-            for key, value in sorted_ip_records[i]:
-                print(f"\t{key}: {value}")
-        except Exception as e:
-            exit
+    for i in range(min(10, len(sorted_ip_records))):
+        ip, count = sorted_ip_records[i]
+        print(f"\t{ip}: {count}")
