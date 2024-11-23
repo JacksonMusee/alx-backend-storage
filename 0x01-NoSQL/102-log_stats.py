@@ -26,19 +26,16 @@ if __name__ == "__main__":
     print(f"{status_check_count} status check")
 
     print("IPS:")
-    ips = []
-    for log in db.nginx.find({}):
-        ip = log["ip"]
-        if ip not in ips:
-            ips.append(ip)
-
     ip_records = {}
-    for ip in ips:
-        count = db.nginx.count_documents({"ip": ip})
-        ip_records[ip] = count
+    for log in db.nginx.find({}):
+        ip = log("ip")
+        if ip in ip_records:
+            ip_records["ip"] += 1
+        else:
+            ip_records["ip"] = 1
 
     sorted_ip_records = sorted(
-        list(ip_records), key=lambda x: x["ip"], reverse=True)
+        ip_records.items(), key=lambda x: x[1], reverse=True)
 
     for i in range(10):
         try:
