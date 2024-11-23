@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     for i in range(10):
         try:
-            for key, value in sorted_ip_records[i].items():
+            for key, value in sorted_ip_records[i]:
                 print(f"\t{key}: {value}")
         except Exception as e:
             exit
