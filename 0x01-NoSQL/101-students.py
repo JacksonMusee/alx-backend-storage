@@ -22,4 +22,4 @@ def top_students(mongo_collection):
         student["averageScore"] = avscore
         students_with_avscore.append(student)
 
-    return students_with_avscore.sort(key=lambda x: x["averageScore"], reverse=True)
+    return students_with_avscore.sorted(key=lambda x: x["averageScore"], reverse=True)
