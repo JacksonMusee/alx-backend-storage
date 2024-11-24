@@ -19,7 +19,6 @@ Bonus: implement this use case with decorators.
 
 import redis
 import requests
-from time import time
 from functools import wraps
 
 # Initialize Redis client
