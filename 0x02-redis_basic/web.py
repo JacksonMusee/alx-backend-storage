@@ -8,7 +8,7 @@ URL and returns it.
 Start in a new file named web.py and do not reuse the code written in
 exercise.py.
 
-Inside get_page track how many times a particular URL was accessed in the 
+Inside get_page track how many times a particular URL was accessed in the
 key "count:{url}" and cache the result with an expiration time of 10 seconds.
 
 Tip: Use http://slowwly.robertomurray.co.uk to simulate a slow response and
