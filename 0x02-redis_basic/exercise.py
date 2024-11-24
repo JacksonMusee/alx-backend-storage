@@ -91,3 +91,27 @@ class Cache:
         Gets a value and return it as int
         '''
         return self.get(key, fn=lambda x: int(x))
+
+
+def replay(method):
+    '''
+    Function to display the history of calls for a particular method.
+    '''
+    key_inputs = f"{method.__qualname__}:inputs"
+    key_outputs = f"{method.__qualname__}:outputs"
+
+    # Retrieve the inputs and outputs from Redis
+    inputs = cache._redis.lrange(key_inputs, 0, -1)
+    outputs = cache._redis.lrange(key_outputs, 0, -1)
+
+    # Print the call history
+    print(f"{method.__qualname__} was called {len(inputs)} times:")
+
+    # Combine inputs and outputs using zip, then display them
+    for inp, out in zip(inputs, outputs):
+        # Convert the input and output back from str to their original format
+        # Use eval to turn the string representation back into a tuple
+        inp = eval(inp)
+        out = out.decode('utf-8')  # Decode bytes to string
+
+        print(f"{method.__qualname__}(*{inp}) -> {out}")
