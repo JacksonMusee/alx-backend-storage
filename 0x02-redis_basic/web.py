@@ -25,11 +25,11 @@ from functools import wraps
 redis_client = redis.Redis()
 
 
-def cache_page(func):
+def cache_page(function):
     '''
     Decorator to cache the page and count its access
     '''
-    @wraps(func)
+    @wraps(function)
     def wrapper(url: str):
         # Check if the URL content is cached
         cached_content = redis_client.get(url)
@@ -41,7 +41,7 @@ def cache_page(func):
             return cached_content.decode('utf-8')
 
         # If content is not cached, fetch it from the web
-        response = func(url)
+        response = function(url)
 
         # Cache the fetched content for 10 seconds
         redis_client.setex(url, 10, response)
