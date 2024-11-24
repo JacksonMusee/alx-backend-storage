@@ -101,8 +101,8 @@ def replay(method):
     key_outputs = f"{method.__qualname__}:outputs"
 
     # Retrieve the inputs and outputs from Redis
-    inputs = cache._redis.lrange(key_inputs, 0, -1)
-    outputs = cache._redis.lrange(key_outputs, 0, -1)
+    inputs = method.__self__._redis.lrange(key_inputs, 0, -1)
+    outputs = method.__self__._redis.lrange(key_outputs, 0, -1)
 
     # Print the call history
     print(f"{method.__qualname__} was called {len(inputs)} times:")
