@@ -36,6 +36,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         '''
         Does as required above
@@ -69,6 +70,3 @@ class Cache:
         Gets a value and return it as int
         '''
         return self.get(key, fn=lambda x: int(x))
-
-
-Cache.store = count_calls(Cache.store)
