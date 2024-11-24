@@ -14,16 +14,16 @@ from typing import Union, Optional, Callable
 from functools import wraps
 
 
-def count_calls(func: Callable -> Callable:
+def count_calls(method: Callable) -> Callable:
     '''
     Decorator to count the number of times a method is called.
     Increments a Redis counter using the method's qualified name.
     '''
-    @ wraps(func)
+    @ wraps(method)
     def wrapper(self, *args, **kwargs):
-        key = func.__qualname__
+        key = method.__qualname__
         self._redis.incr(key)
-        return func(self, *args, **kwargs)
+        return method(self, *args, **kwargs)
     return wrapper
 
 
@@ -44,7 +44,7 @@ class Cache:
         self._redis.set(my_key, data)
         return my_key
 
-    def get(self, key: str, fn: Optional[Callable]=None) -> Optional[Union[str, bytes, int, float]]:
+    def get(self, key: str, fn: Optional[Callable] = None) -> Optional[Union[str, bytes, int, float]]:
         '''
         TakeS a key string argument and an optional Callable argument named fn.
         This callable will be used to convert the data back to the desired format.
