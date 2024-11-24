@@ -13,6 +13,19 @@ import redis
 from typing import Union, Optional, Callable
 
 
+def count_calls(func: Callable) -> Callable:
+    '''
+    Decorator to count the number of times a method is called. 
+    Increments a Redis counter using the method's qualified name.
+    '''
+    @wraps(func)
+    def wrapper(self, *args, **kwargs):
+        key = func.__qualname__
+        self._redis.incr(key)
+        return func(self, *args, **kwargs)
+    return wrapper
+
+
 class Cache:
     '''
     AS above
@@ -55,3 +68,6 @@ class Cache:
         Gets a value and return it as int
         '''
         return self.get(key, fn=lambda x: int(x))
+
+
+Cache.store = count_calls(Cache.store)
