@@ -11,6 +11,7 @@ Type-annotate store correctly. Remember that data can be a str, bytes, int or fl
 import uuid
 import redis
 from typing import Union, Optional, Callable
+from functools import wraps
 
 
 def count_calls(func: Callable) -> Callable:
