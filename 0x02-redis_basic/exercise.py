@@ -9,7 +9,7 @@ The method should generate a random key (e.g. using uuid), store the input data 
 Type-annotate store correctly. Remember that data can be a str, bytes, int or float.
 '''
 import uuid
-from redis import Redis
+import redis
 from typing import Union
 
 
@@ -27,5 +27,5 @@ class Cache:
         Does as required above
         '''
         my_key = str(uuid.uuid4())
-        self._redis.set(my_key, data))
+        self._redis.set(my_key, data)
         return my_key
