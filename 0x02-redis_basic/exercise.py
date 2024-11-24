@@ -10,7 +10,7 @@ Type-annotate store correctly. Remember that data can be a str, bytes, int or fl
 '''
 import uuid
 import redis
-from typing import Union
+from typing import Union, Optional, Callable
 
 
 class Cache:
@@ -29,3 +29,29 @@ class Cache:
         my_key = str(uuid.uuid4())
         self._redis.set(my_key, data)
         return my_key
+
+    def get(self, key: str, fn: Optional[Callable]) -> Optional[Union[str, int, float]]:
+        '''
+        TakeS a key string argument and an optional Callable argument named fn.
+        This callable will be used to convert the data back to the desired format.
+        '''
+        value = self._redis.get(key)
+        if value is None:
+            return None
+
+        if fn:
+            return fn(value)
+
+        return value
+
+    def get_str(self, key: str) -> Optional[str]:
+        '''
+        Gets a value and return it as string
+        '''
+        return self.get(key, fn=lambda x: x.decode("utf-8"))
+
+    def get_int(self, key: str) -> Optional[int]:
+        '''
+        Gets a value and return it as int
+        '''
+        return self.get(key, fn=lambda x: int(x))
